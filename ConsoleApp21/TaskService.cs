@@ -69,9 +69,9 @@ internal class TaskService : ITaskService
             throw new NotFoundException("task tapilmadi:(");
         }
         User? user1 = UserService.users.Find(x => x.Id == userId);
-        if (user1 != null)
+        if (user1 == null)
         {
-            throw new ConflictException("bu task artiq yaradilib.");
+            throw new ConflictException("user tapilmadi:(");
         }
         user1.tasks.Add(task);
     }
@@ -80,7 +80,7 @@ internal class TaskService : ITaskService
         User? user1 = UserService.users.Find(x => x.Id == userId);
         if (user1 != null)
         {
-            throw new ConflictException("bu task artiq yaradilib.");
+            throw new ConflictException("user tapilmadi:(");
         }
         return user1.tasks;
     }
