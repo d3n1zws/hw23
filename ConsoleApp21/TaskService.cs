@@ -1,7 +1,7 @@
 ﻿
 namespace ConsoleApp21;
 using ConsoleApp21.exceptions;
-internal class TaskService
+internal class TaskService : ITaskService
 {
     static List<MyTask> tasks = new List<MyTask>();
     public void AddTask(MyTask task)
@@ -13,24 +13,27 @@ internal class TaskService
         }
         tasks.Add(task);
     }
-    public void FindTask(string title)
+    public MyTask FindTaskForTitle(string title)
     {
         MyTask? task1 = tasks.Find(x => x.Title == title);
         if (task1 == null)
         {
-            throw new NotFoundException
+            throw new NotFoundException("task tapilmadi:(");
         }
+        return task1;
+    }
+    public List<MyTask> FindTasksForStatus(string s)
+    {
+        TaskStatus status = Enum.Parse<TaskStatus>(s);
+        return tasks.FindAll(x => x.TaskStatus == status);
+    }
+    public void RemoveTask(int id)
+    {
+        MyTask? task = tasks.Find(x => x.Id == id);
+        if (task == null)
+        {
+            throw new NotFoundException("task tapilmadi:(");
+        }
+        tasks.Remove(task);
     }
 }
-
-//ITaskService interfeysi yaradırıq
-//3.1. Siyahıya Task əlavə etmək üçün metod. (eyni başlıqlı Task artırılsa ConflictException qaytaracaq)
-//3.2 Title-a görə Siyahıdan task-i tapan metod
-//3.3 Göndərilən Status-da olan task-ları tapan metod
-//3.4 Göndərilən Id-də olan elementi siyahıdan silmək üçün metod
-//TaskService class-ı yaradırıq
-//Task-lar üçün statik Massiv saxlayır özündə
-//3.1-deki tapsirigda Siyahıya Task əlavə etmək üçün metodda eyni başlıqlı Task artırılsa ConflictException qaytaracaq
-//3.2 -deki Title-a görə Siyahıdan task-i tapan metod-da eger hec bir task tapilmasa NotFoundException qaytarsın
-//3.3 string-i enum-a cevirmeyi goster
-//3.4 - də göndərilən Id-də element tapılmasa NotFoundException
