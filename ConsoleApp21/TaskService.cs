@@ -11,21 +11,21 @@ internal class TaskService : ITaskService
         MyTask? task1 = tasks.Find(x => x.Title == task.Title);
         if (task1 != null)
         {
-            throw new ConflictException("bu task artiq yaradilib.");
+            throw new ConflictException("Bu task artiq yaradilib.");
         }
         tasks.Add(task);
         Console.WriteLine("Task yaradildi!");
     }
-    public MyTask FindTaskForTitle(string title)
+    public MyTask FindTaskByTitle(string title)
     {
         MyTask? task1 = tasks.Find(x => x.Title == title);
         if (task1 == null)
         {
-            throw new NotFoundException("task tapilmadi:(");
+            throw new NotFoundException("Task tapilmadi:(");
         }
         return task1;
     }
-    public List<MyTask> FindTasksForStatus(string s)
+    public List<MyTask> FindTasksByStatus(string s)
     {
         TaskStatus status = Enum.Parse<TaskStatus>(s);
         return tasks.FindAll(x => x.TaskStatus == status);
@@ -40,7 +40,7 @@ internal class TaskService : ITaskService
         tasks.Remove(task);
         Console.WriteLine("Task silindi!");
     }
-    public List<MyTask> FindTasksForPriority(string s)
+    public List<MyTask> FindTasksByPriority(string s)
     {
         TaskPriority priority = Enum.Parse<TaskPriority>(s);
         List<MyTask> Tasks = tasks.FindAll(x => x.Priority == priority);
@@ -60,5 +60,28 @@ internal class TaskService : ITaskService
         TaskPriority priority = Enum.Parse<TaskPriority>(s);
         task.Priority = priority;
         Console.WriteLine("Deyisiklik ugurlu oldu");
+    }
+    public void AssignTaskToUser(int taskId, int userId)
+    {
+        MyTask? task = tasks.Find(x => x.Id == taskId);
+        if (task == null)
+        {
+            throw new NotFoundException("task tapilmadi:(");
+        }
+        User? user1 = UserService.users.Find(x => x.Id == userId);
+        if (user1 != null)
+        {
+            throw new ConflictException("bu task artiq yaradilib.");
+        }
+        user1.tasks.Add(task);
+    }
+    public List<MyTask> GetTasksByUserId(int userId)
+    {
+        User? user1 = UserService.users.Find(x => x.Id == userId);
+        if (user1 != null)
+        {
+            throw new ConflictException("bu task artiq yaradilib.");
+        }
+        return user1.tasks;
     }
 }

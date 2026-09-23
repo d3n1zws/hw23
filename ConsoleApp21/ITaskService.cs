@@ -3,9 +3,9 @@
 internal interface ITaskService
 {
     void AddTask(MyTask task);
-    MyTask FindTaskForTitle(string title);
-    List<MyTask> FindTasksForStatus(string s);
+    MyTask FindTaskByTitle(string title);
+    List<MyTask> FindTasksByStatus(string s);
     void RemoveTask(int id);
-    List<MyTask> FindTasksForPriority(string s);
+    List<MyTask> FindTasksByPriority(string s);
     void ChangePriority(int id, string s);
 }
