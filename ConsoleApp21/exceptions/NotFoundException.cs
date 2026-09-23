@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsoleApp21.exceptions
+namespace ConsoleApp21.exceptions;
+
+public class NotFoundException: Exception
 {
-    internal class NotFoundException
+    public NotFoundException(string Message): base(Message)
     {
+        
     }
 }

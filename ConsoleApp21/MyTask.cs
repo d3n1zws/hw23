@@ -1,11 +1,12 @@
 ﻿using ConsoleApp21;
+using ConsoleApp21.enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ConsoleApp21;
 
-public class MyTask : IMyTask
+public class MyTask 
 {
     static int id = 0;
 
@@ -25,6 +26,7 @@ public class MyTask : IMyTask
     public DateTime CreatedAt { get; set; }
     public DateTime DeadLine { get; set; }
     public TaskStatus TaskStatus { get; set; }
+    public TaskPriority Priority { get; set; }
     public override string ToString()
     {
         return $"Id: {Id}, Title: {Title}, Explanation: {Explanation}, Created At: {CreatedAt}, Task Status: {TaskStatus}";

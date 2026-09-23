@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsoleApp21.enums
+namespace ConsoleApp21.enums;
+
+public enum TaskPriority
 {
-    internal class TaskPriority
-    {
-    }
+    Low,
+    Medium,
+    High
 }

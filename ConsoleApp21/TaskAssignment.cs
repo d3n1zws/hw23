@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace ConsoleApp21;
 
-namespace ConsoleApp21
+public class TaskAssignment
 {
-    internal class TaskAssignment
-    {
-    }
 }

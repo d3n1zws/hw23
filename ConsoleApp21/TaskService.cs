@@ -1,5 +1,7 @@
 ﻿
 namespace ConsoleApp21;
+
+using ConsoleApp21.enums;
 using ConsoleApp21.exceptions;
 internal class TaskService : ITaskService
 {
@@ -12,6 +14,7 @@ internal class TaskService : ITaskService
             throw new ConflictException("bu task artiq yaradilib.");
         }
         tasks.Add(task);
+        Console.WriteLine("Task yaradildi!");
     }
     public MyTask FindTaskForTitle(string title)
     {
@@ -35,5 +38,27 @@ internal class TaskService : ITaskService
             throw new NotFoundException("task tapilmadi:(");
         }
         tasks.Remove(task);
+        Console.WriteLine("Task silindi!");
+    }
+    public List<MyTask> FindTasksForPriority(string s)
+    {
+        TaskPriority priority = Enum.Parse<TaskPriority>(s);
+        List<MyTask> Tasks = tasks.FindAll(x => x.Priority == priority);
+        if (Tasks.Count == 0 || Tasks == null)
+        {
+            throw new NotFoundException("hec bir task tapilmadi:(");
+        }
+        return tasks;
+    }
+    public void ChangePriority(int id, string s)
+    {
+        MyTask? task = tasks.Find(x => x.Id == id);
+        if (task == null)
+        {
+            throw new NotFoundException("task tapilmadi:(");
+        }
+        TaskPriority priority = Enum.Parse<TaskPriority>(s);
+        task.Priority = priority;
+        Console.WriteLine("Deyisiklik ugurlu oldu");
     }
 }
